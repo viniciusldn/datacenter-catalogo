@@ -19,11 +19,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+// TODO: Auto-generated Javadoc
 /**
  * Unit test for simple App.
  */
 public class AppTest {
 
+  /**
+   * Populate DB.
+   */
   @BeforeAll
   public static void populateDB() {
     Aplicacao app1 = new Aplicacao();
@@ -108,6 +112,9 @@ public class AppTest {
     service.update(datacenter2);
   }
 
+  /**
+   * Test service implementation.
+   */
   @Test
   @DisplayName("1 - Verifica se classes de service implementam ServiceInterface")
   public void testServiceImplementation() {
@@ -133,6 +140,9 @@ public class AppTest {
     });
   }
 
+  /**
+   * Test insert datacenter.
+   */
   @Test
   @DisplayName("2 - Verifica insere corretamente a entidade Datacenter")
   public void testInsertDatacenter() {
@@ -141,6 +151,9 @@ public class AppTest {
     assertEquals(2, data.size());
   }
 
+  /**
+   * Test insert servidor.
+   */
   @Test
   @DisplayName("3 - Verifica insere corretamente a entidade Servidor")
   public void testInsertServidor() {
@@ -149,6 +162,9 @@ public class AppTest {
     assertEquals(4, data.size());
   }
 
+  /**
+   * Test insert aplicacao.
+   */
   @Test
   @DisplayName("4 - Verifica insere corretamente a entidade Aplicação")
   public void testInsertAplicacao() {
@@ -157,6 +173,9 @@ public class AppTest {
     assertEquals(3, data.size());
   }
 
+  /**
+   * Test relacionamento one to many.
+   */
   @Test
   @DisplayName("5 - Testa relacionamento OneToMany (Datacenter <-> Servidor)")
   public void testRelacionamentoOneToMany() {
@@ -176,6 +195,9 @@ public class AppTest {
 
   }
 
+  /**
+   * Test relacionamento many to many.
+   */
   @Test
   @DisplayName("6 - Testa relacionamento ManyToMany (Servidor <-> Aplicação)")
   public void testRelacionamentoManyToMany() {
@@ -210,6 +232,9 @@ public class AppTest {
 
   }
 
+  /**
+   * Test remove datacenter.
+   */
   @Test
   @DisplayName("7 - Testa se remove entidade Datacenter")
   public void testRemoveDatacenter() {
@@ -224,6 +249,9 @@ public class AppTest {
     assertNull(service.findById(datacenter.getId()));
   }
 
+  /**
+   * Test remove servidor.
+   */
   @Test
   @DisplayName("8 - Testa se remove entidade Servidor")
   public void testRemoveServidor() {
@@ -238,6 +266,9 @@ public class AppTest {
     assertNull(service.findById(servidor.getId()));
   }
 
+  /**
+   * Test remove aplicacao.
+   */
   @Test
   @DisplayName("9 - Testa se remove entidade Aplicação")
   public void testRemoveAplicacao() {
@@ -252,6 +283,9 @@ public class AppTest {
     assertNull(service.findById(aplicacao.getId()));
   }
 
+  /**
+   * Clear DB.
+   */
   @AfterAll
   public static void clearDB() {
     DatacenterService service = new DatacenterService();

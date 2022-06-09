@@ -1,11 +1,19 @@
+package com.trybe.acc.java.datacenter.service;
+
+import com.trybe.acc.java.datacenter.entity.Aplicacao;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import com.trybe.acc.java.datacenter.entity.Aplicacao;
-
 public class AplicacaoService implements ServiceInterface<Aplicacao, Long> {
+
+  /**
+   * Salva uma aplicação no banco de dados.
+   *
+   * @param app a aplicação app ser salva
+   */
 
   public void save(Aplicacao app) {
     EntityManager em = emf.createEntityManager();
@@ -15,6 +23,12 @@ public class AplicacaoService implements ServiceInterface<Aplicacao, Long> {
     em.close();
   }
 
+  /**
+   * Atualiza uma aplicação no banco de dados.
+   *
+   * @param app a aplicação app ser atualizada
+   */
+
   public void update(Aplicacao app) {
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();
@@ -22,6 +36,12 @@ public class AplicacaoService implements ServiceInterface<Aplicacao, Long> {
     em.getTransaction().commit();
     em.close();
   }
+
+  /**
+   * Remove uma aplicação do banco de dados.
+   *
+   * @param id o identificador único da aplicação a ser removida
+   */
 
   public void delete(Long id) {
     EntityManager em = emf.createEntityManager();
@@ -34,6 +54,12 @@ public class AplicacaoService implements ServiceInterface<Aplicacao, Long> {
     em.close();
   }
 
+  /**
+   * Retorna todas as aplicações do banco de dados.
+   *
+   * @return List
+   */
+
   public List<Aplicacao> list() {
     EntityManager em = emf.createEntityManager();
 
@@ -41,6 +67,14 @@ public class AplicacaoService implements ServiceInterface<Aplicacao, Long> {
     List<Aplicacao> lstApp = query.getResultList();
     return lstApp;
   }
+
+  /**
+   * findById.
+   *
+   * @param id da aplicação a ser encontrada
+   *
+   * @return Aplicacao
+   */
 
   public Aplicacao findById(Long id) {
     EntityManager em = emf.createEntityManager();
