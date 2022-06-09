@@ -5,7 +5,10 @@ import com.trybe.acc.java.datacenter.entity.Servidor;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  * The Class ServidorService.
@@ -46,7 +49,12 @@ public class ServidorService implements ServiceInterface<Servidor, Long> {
   public List<Servidor> list() {
     EntityManager em = emf.createEntityManager();
 
-    Query query = em.createQuery("from Aplicacao");
+    CriteriaBuilder cb = em.getCriteriaBuilder();
+    CriteriaQuery<Servidor> cq = cb.createQuery(Servidor.class);
+    Root<Servidor> rootEntry = cq.from(Servidor.class);
+    CriteriaQuery<Servidor> all = cq.select(rootEntry);
+
+    TypedQuery<Servidor> query = em.createQuery(all);
     return query.getResultList();
   }
 

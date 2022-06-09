@@ -5,7 +5,10 @@ import com.trybe.acc.java.datacenter.entity.Datacenter;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 public class DatacenterService implements ServiceInterface<Datacenter, Long> {
 
@@ -44,8 +47,12 @@ public class DatacenterService implements ServiceInterface<Datacenter, Long> {
   public List<Datacenter> list() {
     EntityManager em = emf.createEntityManager();
 
-    Query query = em.createQuery("from Aplicacao");
-    query.getResultList();
+    CriteriaBuilder cb = em.getCriteriaBuilder();
+    CriteriaQuery<Datacenter> cq = cb.createQuery(Datacenter.class);
+    Root<Datacenter> rootEntry = cq.from(Datacenter.class);
+    CriteriaQuery<Datacenter> all = cq.select(rootEntry);
+
+    TypedQuery<Datacenter> query = em.createQuery(all);
     return query.getResultList();
   }
 
