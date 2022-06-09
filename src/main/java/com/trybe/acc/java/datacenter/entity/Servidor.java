@@ -2,7 +2,6 @@ package com.trybe.acc.java.datacenter.entity;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,110 +11,67 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Servidor.
- */
 @Entity
+@Table(name = "tabela_servidor")
 public class Servidor {
 
-  /** The id. */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
-
-  /** The nome. */
+  private Long id;
   private String nome;
 
-  /** The data center. */
+  /** VARIOS servidores pode ter UM datacenter. */
   @ManyToOne
   @JoinColumn(name = "datacenter_id")
-  private Datacenter dataCenter;
+  private Datacenter datacenter;
 
-  /** The aplicacoes. */
   @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-  @JoinTable(name = "AplicacoesServidores", joinColumns = {
-      @JoinColumn(name = "servidor_id") }, inverseJoinColumns = {
-          @JoinColumn(name = "aplicacao_id") })
+  @JoinTable(name = "relacionamento_servidor_aplicacao", joinColumns = {
+      @JoinColumn(name = "datacenter_id") }, inverseJoinColumns = {
+          @JoinColumn(name = "servidor_id") })
   private Set<Aplicacao> aplicacoes;
 
-  /**
-   * Instantiates a new servidor.
-   */
   public Servidor() {
+    super();
     this.aplicacoes = new HashSet<Aplicacao>();
   }
 
-  /**
-   * Gets the id.
-   *
-   * @return the id
-   */
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  /**
-   * Sets the id.
-   *
-   * @param id the new id
-   */
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
-  /**
-   * Gets the nome.
-   *
-   * @return the nome
-   */
   public String getNome() {
     return nome;
   }
 
-  /**
-   * Sets the nome.
-   *
-   * @param nome the new nome
-   */
   public void setNome(String nome) {
     this.nome = nome;
   }
 
-  /**
-   * Gets the datacenter.
-   *
-   * @return the datacenter
-   */
   public Datacenter getDatacenter() {
-    return dataCenter;
+    return datacenter;
   }
 
-  /**
-   * Sets the datacenter.
-   *
-   * @param dataCenter the new datacenter
-   */
-  public void setDatacenter(Datacenter dataCenter) {
-    this.dataCenter = dataCenter;
+  public void setDatacenter(Datacenter datacenter) {
+    this.datacenter = datacenter;
   }
 
-  /**
-   * Gets the aplicacoes.
-   *
-   * @return the aplicacoes
-   */
   public Set<Aplicacao> getAplicacoes() {
     return aplicacoes;
   }
 
-  /**
-   * Adds the aplicacao.
-   *
-   * @param aplicacao the aplicacao
-   */
-  public void addAplicacao(Aplicacao aplicacao) {
-    this.aplicacoes.add(aplicacao);
+  public void setAplicacoes(Set<Aplicacao> aplicacoes) {
+    this.aplicacoes = aplicacoes;
   }
+
+  public void addAplicacao(Aplicacao aplicac) {
+    this.aplicacoes.add(aplicac);
+  }
+
 }
